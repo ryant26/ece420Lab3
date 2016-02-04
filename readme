@@ -28,7 +28,7 @@ See readme in sdk directory on how to generate matrix input file, and test resul
 
 <Person 2>
 1. Some implementation (only in lab)
-2. Testing
+2. Testing in the report, and of the implementation
 3. All statistics gathering
 	a. Running all tests on lab machines
 	b. Compiling statistics into excel
