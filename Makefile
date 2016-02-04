@@ -7,25 +7,22 @@ BIN = bin
 
 default: checkdirs submission
 
-all: checkdirs datagen serialtester main solution
+all: checkdirs datagen serialtester main
 
 $(BUILDDIR)/%.o: %.c
 	$(CC) -c -o $@ $< $(CFLAGS)
 
-submission: $(BUILDDIR)/hello.o
+submission: $(BUILDDIR)/hello.o $(BUILDDIR)/utilities.o
 	$(CC) -o main $^ $(CFLAGS)
 
 main: $(BUILDDIR)/hello.o $(BUILDDIR)/utilities.o
 	$(CC) -o $(BIN)/main $^ $(CFLAGS)
 
-datagen: $(BUILDDIR)/Lab2IO.o build/datagen.o
+datagen: $(BUILDDIR)/Lab3IO.o build/datagen.o
 	$(CC) -o $(BIN)/datagen $^
 
-serialtester: build/Lab2IO.o build/serialtester.o 
-	$(CC) -o $(BIN)/serialtester $^
-
-solution: $(BUILDDIR)/Lab2IO.o $(BUILDDIR)/lab2sol_bar.o 
-	$(CC) -o $(BIN)/solution $^ $(CFLAGS)
+serialtester: build/Lab3IO.o build/serialtester.o 
+	$(CC) -o $(BIN)/serialtester $^ $(CFLAGS)
 
 checkdirs: $(BUILDDIR) $(BIN)
 
