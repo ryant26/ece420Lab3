@@ -1,5 +1,5 @@
 CC := gcc
-CFLAGS := -lpthread -lm -Wall
+CFLAGS := -fopenmp -lm -Wall
 
 VPATH = src:sdk
 BUILDDIR = build
@@ -12,10 +12,10 @@ all: checkdirs datagen serialtester main solution
 $(BUILDDIR)/%.o: %.c
 	$(CC) -c -o $@ $< $(CFLAGS)
 
-submission: $(BUILDDIR)/path.o $(BUILDDIR)/Lab2IO.o $(BUILDDIR)/utilities.o $(BUILDDIR)/datacube.o 
+submission: $(BUILDDIR)/hello.o
 	$(CC) -o main $^ $(CFLAGS)
 
-main: $(BUILDDIR)/path.o $(BUILDDIR)/Lab2IO.o $(BUILDDIR)/utilities.o $(BUILDDIR)/datacube.o 
+main: $(BUILDDIR)/hello.o $(BUILDDIR)/utilities.o
 	$(CC) -o $(BIN)/main $^ $(CFLAGS)
 
 datagen: $(BUILDDIR)/Lab2IO.o build/datagen.o
