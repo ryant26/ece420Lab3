@@ -63,6 +63,10 @@ int main(int argc, char* argv[])
                     Au[index[i]][j] -= Au[index[k]][j] * temp;
             }       
         }
+    
+        Lab2_saveoutput(Au, size, 10, "Solution-Gauss.txt");
+
+
         /*Jordan elimination*/
         for (k = size - 1; k > 0; --k){
             for (i = k - 1; i >= 0; --i ){
@@ -75,6 +79,8 @@ int main(int argc, char* argv[])
         for (k=0; k< size; ++k)
             X[k] = Au[index[k]][size] / Au[index[k]][k];
     }
+
+    Lab2_saveoutput(Au, size, 10, "Solution.txt");
 
 	/*compare the solution*/
 	error = 0;

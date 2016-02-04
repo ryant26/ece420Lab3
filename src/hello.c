@@ -27,28 +27,23 @@ int main(int argc, char * argv[]){
  		int i;
  		int j;
  		for (i = k+1; i < size; i++){
- 			double temp = (A[i][k]/A[k][k]);
  			for (j = k; j < size + 1; j++){
- 				A[i][j] = A[i][j] - ( temp * A[k][j]);
+ 				A[i][j] = A[i][j] - ((A[i][k]/A[k][k]) * A[k][j]);
  			}
  		}
  	}
 
  	Lab2_saveoutput(A, size, 10, "Gauss.txt");
- 	printf("above second\n");
+
  	int i;
  	for (k = size-1; k > 0; k--){
- 		double temp = (A[i][k] / A[k][k]);
-
  		for (i = 0; i < k; i++){
- 			A[i][k] = A[i][k] - ( temp * A[k][k]);
- 			double result = A[i][size] - ( temp * A[k][size]);
-
+ 			double result = A[i][size] - ( (A[i][k] / A[k][k]) * A[k][size]);;
  			printf("A[%d][%d] = %f \n", i, size, result);
- 			A[i][size] = A[i][size] - ( temp * A[k][size]);
+ 			A[i][size] = A[i][size] - ( (A[i][k] / A[k][k]) * A[k][size]);
+ 			A[i][k] = A[i][k] - ( (A[i][k] / A[k][k]) * A[k][k]);
  		}
  	}
- 	printf("below second\n");
 
  	Lab2_saveoutput(A, size, 10, "Jordan.txt");
 
