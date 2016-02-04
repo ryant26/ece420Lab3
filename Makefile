@@ -15,7 +15,7 @@ $(BUILDDIR)/%.o: %.c
 submission: $(BUILDDIR)/hello.o $(BUILDDIR)/utilities.o
 	$(CC) -o main $^ $(CFLAGS)
 
-main: $(BUILDDIR)/hello.o $(BUILDDIR)/utilities.o
+main: $(BUILDDIR)/hello.o $(BUILDDIR)/utilities.o  $(BUILDDIR)/Lab3IO.o
 	$(CC) -o $(BIN)/main $^ $(CFLAGS)
 
 datagen: $(BUILDDIR)/Lab3IO.o build/datagen.o

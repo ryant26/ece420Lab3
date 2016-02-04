@@ -80,6 +80,44 @@ int Lab3SaveOutput(double* x, int size, double Time){
     fclose(op);
     return 0;
 }
+
+int Lab2_saveoutput(double **A, int size, double Time, char * name){
+/*
+    Save the data to the file for Lab 2 
+
+    -----
+    Input:
+    int **A     pointer to the result matrix 
+    int size    pointer to the matrix size
+    double Time Time measure calulation time
+    
+    -----
+    Output:
+    data_output the stored data
+
+    -----
+    Example:
+    lab2_loadinput(A, size, Time);
+*/
+
+    FILE* op;
+    int i, j;
+
+    if ((op = fopen(name,"w")) == NULL){
+        printf("Error opening the output file.\n");
+        return 1;
+    }
+
+    fprintf(op, "%d\n\n", size);
+    fprintf(op, "%lf\n\n", Time);
+    for (i = 0; i < size; i++) {
+        for (j = 0; j< size + 1; j++)
+            fprintf(op, "%f\t", A[i][j]);
+        fprintf(op, "\n");
+    }
+    fclose(op);
+    return 0;
+}
  
 double** CreateMat(int NumRow, int NumCol){
     /* Allocate memory for an array
