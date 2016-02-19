@@ -66,8 +66,8 @@ int main(int argc, char * argv[]){
 
 int find_max_indice(int k, double **A, int size){
 	int i;
-	double current_max = 0;
-	int current_max_indice = 0;
+	double current_max = fabs(A[k][k]);
+	int current_max_indice = k;
 	for (i = k; i < size; i++){
 		if (fabs(A[i][k]) > current_max){
 			current_max_indice = i;
@@ -87,6 +87,7 @@ void swap_rows(double **A, int from, int to){
 void get_result(double *storage, double **A, int size){
 	int i;
 	for (i = 0; i < size; i++){
-		storage[i] = A[i][size];
+		printf("Storage[%d] = %f \n", i, A[i][size]);
+		storage[i] = A[i][size] / A[i][i];
 	}
 }
