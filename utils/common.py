@@ -1,4 +1,5 @@
 from subprocess import call
+from subprocess import check_output
 
 def run_datagen(problem_size):
 	call(["../bin/datagen", "-s", str(problem_size)])
@@ -13,6 +14,13 @@ def cleanup():
 	call(["rm", "-f", "data_input"])
 	call(["rm", "-f", "*.txt"])
 
+
+def is_result_correct():
+	result = check_output("../bin/serialtester")
+	if "Congratulation" in result.decode("utf-8"):
+		return True
+	else:
+		return False
 
 def get_runtime():
 	with open('data_output', 'rb') as f:

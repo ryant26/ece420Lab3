@@ -14,6 +14,8 @@ for i in range(7):
 common.run_datagen(5)
 common.run_main(5)
 print("runtime: ",common.get_runtime())
+if (common.is_result_correct()):
+	print("Result was correct!")
 common.cleanup()
 
 
