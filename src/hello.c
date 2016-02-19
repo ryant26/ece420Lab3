@@ -32,7 +32,7 @@ int main(int argc, char * argv[]){
  		for (i = k+1; i < size; i++){
 		printf("Current Row: %d \n",i);
 			double subtrahend_coefficient = (A[i][k]/A[k][k]);
-			printf("Subtrahend Coefficient: %d \n",subtrahend_coefficient);
+			printf("Subtrahend Coefficient: %f \n",subtrahend_coefficient);
  			for (j = k; j < size + 1; j++){
 				printf("Current Col: %d \n",j);
  				A[i][j] = A[i][j] - (subtrahend_coefficient* A[k][j]);
