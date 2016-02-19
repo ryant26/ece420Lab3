@@ -14,7 +14,6 @@ def cleanup():
 	call(["rm", "-f", "data_input"])
 	call(["rm", "-f", "*.txt"])
 
-
 def is_result_correct():
 	result = check_output("../bin/serialtester")
 	if "Congratulation" in result.decode("utf-8"):
