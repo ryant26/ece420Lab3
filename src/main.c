@@ -2,10 +2,11 @@
 #include <stdlib.h>
 #include <omp.h>
 #include <math.h>
-#include "hello.h"
+#include "main.h"
 #include "utilities.h"
 #include "../sdk/Lab3IO.h"
 #include "../sdk/timer.h"
+#include <omp.h>
 
 int main(int argc, char * argv[]){
 	int threads = parse_number_threads(argc, argv);
@@ -18,47 +19,42 @@ int main(int argc, char * argv[]){
 	double end_time;
 	GET_TIME(start_time);
 
-
+	/*This is the Gaussian Step, it creates an upper triangle of the matrix*/
  	int k;
  	for (k = 0; k < size; k++){
  		int max_indice = find_max_indice(k, A, size);
  		swap_rows(A, k, max_indice);
 
  		int i;
- 		int j;
-		printf("Current k value: %d \n",k);
-		printf("----------------------------\n");
+ 		int j;;
+		#pragma omp parallel for num_threads(threads) \
+		default(none) shared(A,size,k) private(i,j)
  		for (i = k+1; i < size; i++){
-		printf("Current Row: %d \n",i);
-			double subtrahend_coefficient = (A[i][k]/A[k][k]);
-			printf("Subtrahend Coefficient: %d \n",subtrahend_coefficient);
+			double subtrahend_coefficient = (A[i][k]/A[k][k]);;
  			for (j = k; j < size + 1; j++){
-				printf("Current Col: %d \n",j);
  				A[i][j] = A[i][j] - (subtrahend_coefficient* A[k][j]);
  			}
  		}
  	}
 
- 	Lab2_saveoutput(A, size, 10, "Gauss.txt");
-
- 	int i;
+	/*Jordan Elimination Step*/
+	int i;
  	for (k = size-1; k > 0; k--){
+		#pragma omp parallel for num_threads(threads) \
+		default(none) shared(A,size,k) private(i)
  		for (i = 0; i < k; i++){
- 			double result = A[i][size] - ( (A[i][k] / A[k][k]) * A[k][size]);;
- 			printf("A[%d][%d] = %f \n", i, size, result);
  			A[i][size] = A[i][size] - ( (A[i][k] / A[k][k]) * A[k][size]);
  			A[i][k] = A[i][k] - ( (A[i][k] / A[k][k]) * A[k][k]);
  		}
  	}
 
- 	Lab2_saveoutput(A, size, 10, "Jordan.txt");
 
 
  	// Retrieve elapsed time
 	GET_TIME(end_time);
 
 	get_result(storage, A, size);
-
+	printf("Total Time: %f \n",end_time-start_time);
  	Lab3SaveOutput(storage, size, end_time - start_time);
 
 	return 0;
