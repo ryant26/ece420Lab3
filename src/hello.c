@@ -6,6 +6,7 @@
 #include "utilities.h"
 #include "../sdk/Lab3IO.h"
 #include "../sdk/timer.h"
+#include <omp.h>
 
 int main(int argc, char * argv[]){
 	int threads = parse_number_threads(argc, argv);
@@ -66,13 +67,8 @@ int main(int argc, char * argv[]){
 
 int find_max_indice(int k, double **A, int size){
 	int i;
-<<<<<<< HEAD
-	double current_max = 0;
-	int current_max_indice = 0;
-=======
 	double current_max = fabs(A[k][k]);
 	int current_max_indice = k;
->>>>>>> upstream/master
 	for (i = k; i < size; i++){
 		if (fabs(A[i][k]) > current_max){
 			current_max_indice = i;
