@@ -87,7 +87,7 @@ void swap_rows(double **A, int from, int to){
 void get_result(double *storage, double **A, int size){
 	int i;
 	for (i = 0; i < size; i++){
-		printf("Storage[%d] = %f \n", i, A[i][size]);
+		printf("Storage[%d] = %f \n", i, A[i][size] / A[i][i]);
 		storage[i] = A[i][size] / A[i][i];
 	}
 }
