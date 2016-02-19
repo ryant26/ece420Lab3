@@ -11,9 +11,10 @@ def run_serialtester():
 	call(["../bin/serialtester"])
 
 def cleanup():
+	call("rm -rf *.txt", shell=True)
 	call(["rm", "-f", "data_input"])
-	call(["rm", "-f", "*.txt"])
-
+	call(["rm", "-f", "data_output"])
+	
 def is_result_correct():
 	result = check_output("../bin/serialtester")
 	if "Congratulation" in result.decode("utf-8"):
