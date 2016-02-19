@@ -12,11 +12,14 @@ all: checkdirs datagen serialtester main
 $(BUILDDIR)/%.o: %.c
 	$(CC) -c -o $@ $< $(CFLAGS)
 
-submission: $(BUILDDIR)/hello.o $(BUILDDIR)/utilities.o
+submission: $(BUILDDIR)/main.o $(BUILDDIR)/utilities.o
 	$(CC) -o main $^ $(CFLAGS)
 
-main: $(BUILDDIR)/hello.o $(BUILDDIR)/utilities.o  $(BUILDDIR)/Lab3IO.o
+main: $(BUILDDIR)/main.o $(BUILDDIR)/utilities.o  $(BUILDDIR)/Lab3IO.o
 	$(CC) -o $(BIN)/main $^ $(CFLAGS)
+
+serialmain: $(BUILDDIR)/serialmain.o $(BUILDDIR)/utilities.o  $(BUILDDIR)/Lab3IO.o
+	$(CC) -o $(BIN)/serialmain $^ $(CFLAGS)
 
 datagen: $(BUILDDIR)/Lab3IO.o build/datagen.o
 	$(CC) -o $(BIN)/datagen $^
