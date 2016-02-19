@@ -26,9 +26,15 @@ int main(int argc, char * argv[]){
 
  		int i;
  		int j;
+		printf("Current k value: %d \n",k);
+		printf("----------------------------\n");
  		for (i = k+1; i < size; i++){
+		printf("Current Row: %d \n",i);
+			double subtrahend_coefficient = (A[i][k]/A[k][k]);
+			printf("Subtrahend Coefficient: %d \n",subtrahend_coefficient);
  			for (j = k; j < size + 1; j++){
- 				A[i][j] = A[i][j] - ((A[i][k]/A[k][k]) * A[k][j]);
+				printf("Current Col: %d \n",j);
+ 				A[i][j] = A[i][j] - (subtrahend_coefficient* A[k][j]);
  			}
  		}
  	}
@@ -60,7 +66,7 @@ int main(int argc, char * argv[]){
 
 int find_max_indice(int k, double **A, int size){
 	int i;
-	int current_max = 0;
+	double current_max = 0;
 	int current_max_indice = 0;
 	for (i = k; i < size; i++){
 		if (fabs(A[i][k]) > current_max){
