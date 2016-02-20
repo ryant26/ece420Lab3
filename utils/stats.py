@@ -42,6 +42,6 @@ def multi_run(sizes):
 	for i in sizes:
 		start += run(ws, start, i)
 
-multi_run([300, 500, 1000])
+multi_run([500, 1000])
 common.cleanup()
 wb.save("stats.xlsx")

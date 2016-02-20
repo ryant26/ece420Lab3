@@ -27,7 +27,7 @@ int main(int argc, char * argv[]){
 
  		int i;
  		int j;;
-		#pragma omp parallel for num_threads(threads) \
+		#pragma omp parallel for schedule(dynamic,1) num_threads(threads) \
 		default(none) shared(A,size,k) private(i,j)
  		for (i = k+1; i < size; i++){
 			double subtrahend_coefficient = (A[i][k]/A[k][k]);;
