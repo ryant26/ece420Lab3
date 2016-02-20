@@ -19,7 +19,7 @@ def perform_run(problem_Size):
 				out = "Wrong!!!"
 				all_correct = False
 
-			print("Threads", i, ": Correct")
+			print("Threads", i, ":", out)
 
 	if (all_correct):
 		print("TEST WAS SUCCESSFUL!")
@@ -40,5 +40,5 @@ def perform_multiple_sizes(sizes):
 	else:
 		print("There were failures!!!!")
 
-perform_multiple_sizes([100, 200, 300])
+perform_multiple_sizes([3, 5, 10, 15, 20, 30, 40, 50, 100, 100, 100, 200, 300])
 common.cleanup()

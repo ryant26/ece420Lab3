@@ -21,32 +21,38 @@ int main(int argc, char * argv[]){
 
 	/*This is the Gaussian Step, it creates an upper triangle of the matrix*/
  	int k;
- 	for (k = 0; k < size; k++){
- 		int max_indice = find_max_indice(k, A, size);
- 		swap_rows(A, k, max_indice);
+ 	#pragma omp parallel num_threads(threads) \
+	default(none) shared(A,size) private(k)
+	{
+	 	for (k = 0; k < size; k++){
+	 		#pragma omp single 
+	 		{
+	 			int max_indice = find_max_indice(k, A, size);
+	 			swap_rows(A, k, max_indice);
+	 		}
+	 		int i;
+	 		int j;;
+			#pragma omp for schedule(dynamic,1) private(i,j)
+	 		for (i = k+1; i < size; i++){
+				double subtrahend_coefficient = (A[i][k]/A[k][k]);;
+	 			for (j = k; j < size + 1; j++){
+	 				A[i][j] = A[i][j] - (subtrahend_coefficient* A[k][j]);
+	 			}
+	 		}
+	 	}
 
- 		int i;
- 		int j;;
-		#pragma omp parallel for schedule(dynamic,1) num_threads(threads) \
-		default(none) shared(A,size,k) private(i,j)
- 		for (i = k+1; i < size; i++){
-			double subtrahend_coefficient = (A[i][k]/A[k][k]);;
- 			for (j = k; j < size + 1; j++){
- 				A[i][j] = A[i][j] - (subtrahend_coefficient* A[k][j]);
- 			}
- 		}
- 	}
+	 	#pragma omp barrier
 
-	/*Jordan Elimination Step*/
-	int i;
- 	for (k = size-1; k > 0; k--){
-		#pragma omp parallel for num_threads(threads) \
-		default(none) shared(A,size,k) private(i)
- 		for (i = 0; i < k; i++){
- 			A[i][size] = A[i][size] - ( (A[i][k] / A[k][k]) * A[k][size]);
- 			A[i][k] = A[i][k] - ( (A[i][k] / A[k][k]) * A[k][k]);
- 		}
- 	}
+		/*Jordan Elimination Step*/
+		int i;
+	 	for (k = size-1; k > 0; k--){
+			#pragma omp for schedule(dynamic,1) private(i)
+	 		for (i = 0; i < k; i++){
+	 			A[i][size] = A[i][size] - ( (A[i][k] / A[k][k]) * A[k][size]);
+	 			A[i][k] = A[i][k] - ( (A[i][k] / A[k][k]) * A[k][k]);
+	 		}
+	 	}
+	}
 
 
 
