@@ -18,7 +18,7 @@ def run(ws, starting_row, problem_size):
 	common.run_datagen(problem_size)
 	counter = 0;
 
-	for i in range(1, problem_size+1):
+	for i in range(1, min(problem_size+1, 201)):
 		if(problem_size % i == 0):
 			counter += 1
 			average = 0
@@ -42,6 +42,6 @@ def multi_run(sizes):
 	for i in sizes:
 		start += run(ws, start, i)
 
-multi_run([3,5])
+multi_run([300, 500, 1000])
 common.cleanup()
 wb.save("stats.xlsx")
