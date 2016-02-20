@@ -40,5 +40,5 @@ def perform_multiple_sizes(sizes):
 	else:
 		print("There were failures!!!!")
 
-perform_multiple_sizes([3, 5])
+perform_multiple_sizes([100, 200, 300])
 common.cleanup()
