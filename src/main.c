@@ -60,7 +60,6 @@ int main(int argc, char * argv[]){
 	GET_TIME(end_time);
 
 	get_result(storage, A, size);
-	printf("Total Time: %f \n",end_time-start_time);
  	Lab3SaveOutput(storage, size, end_time - start_time);
 
 	return 0;
